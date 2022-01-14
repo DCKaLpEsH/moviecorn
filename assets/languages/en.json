@@ -1,0 +1,13 @@
+{
+    "favouriteMovies" : "Favourite Movies",
+    "language" : "Language",
+    "feedback" : "Feedback",
+    "about" : "About",
+    "popular" : "Popular",
+    "soon" : "Soon",
+    "now" : "Now",
+    "aboutDescription" : "This is a sample application made using the TMDb API for educational purposes. No endorsing from TMDb.",
+    "okay" : "Okay"
+
+
+}

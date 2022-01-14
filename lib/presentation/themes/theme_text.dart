@@ -7,6 +7,14 @@ import 'package:moviecorn/presentation/themes/app_colors.dart';
 class ThemeText {
   const ThemeText._();
 
+  static getTextTheme() => TextTheme(
+        headline5: _whiteHeadline5,
+        headline6: _whiteHeadline6,
+        subtitle1: whiteSubtitle1,
+        bodyText2: whiteBodyText2,
+        button: _whiteButton,
+      );
+
   static TextTheme get _poppinsTextTheme => GoogleFonts.poppinsTextTheme();
 
   static TextStyle? get _whiteHeadline6 =>
@@ -14,12 +22,17 @@ class ThemeText {
         fontSize: Sizes.dimen_16.sp.toDouble(),
         color: Colors.white,
       );
-
-  static getTextTheme() => TextTheme(
-        headline6: _whiteHeadline6,
-        subtitle1: whiteSubtitle1,
-        bodyText2: whiteBodyText2,
+  static TextStyle? get _whiteHeadline5 =>
+      _poppinsTextTheme.headline5?.copyWith(
+        fontSize: Sizes.dimen_16.sp.toDouble(),
+        color: Colors.white,
       );
+
+  static TextStyle? get _whiteButton => _poppinsTextTheme.button?.copyWith(
+        fontSize: Sizes.dimen_14.sp.toDouble(),
+        color: Colors.white,
+      );
+
   static TextStyle? get whiteSubtitle1 => _poppinsTextTheme.subtitle1?.copyWith(
         fontSize: Sizes.dimen_16.sp.toDouble(),
         color: Colors.white,

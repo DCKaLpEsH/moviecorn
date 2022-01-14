@@ -1,0 +1,11 @@
+{
+    "favouriteMovies" : "Películas favoritas",
+    "language" : "Idioma",
+    "feedback" :"reacción",
+    "about" : "acerca de",
+    "popular" :"POPULAR",
+    "soon" :"PRONTO",
+    "now" : "AHORA",
+    "aboutDescription" : "Esta es una aplicación de muestra creada con la API de TMDb con fines educativos. Sin respaldo de TMDb.",
+    "okay" : "Bueno"
+}

@@ -12,39 +12,36 @@ class NavigationExpandedListItem extends StatelessWidget {
     required this.children,
   }) : super(key: key);
   final String title;
-  final Function() onPressed;
+  final Function(int index) onPressed;
   final List<String> children;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 2,
-              color: Theme.of(context).primaryColor.withOpacity(0.7),
-            ),
-          ],
-        ),
-        child: ExpansionTile(
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.subtitle1,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 2,
+            color: Theme.of(context).primaryColor.withOpacity(0.7),
           ),
-          iconColor: AppColors.royalBlue,
-          childrenPadding: EdgeInsets.symmetric(
-            horizontal: Sizes.dimen_24.w.toDouble(),
-          ),
-          children: [
-            for (var i = 0; i < children.length; i++)
-              NavigationListItem(
-                title: children[i],
-                onPressed: () {},
-              )
-          ],
-          collapsedIconColor: AppColors.royalBlue,
+        ],
+      ),
+      child: ExpansionTile(
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
+        iconColor: AppColors.royalBlue,
+        childrenPadding: EdgeInsets.symmetric(
+          horizontal: Sizes.dimen_24.w.toDouble(),
+        ),
+        children: [
+          for (var i = 0; i < children.length; i++)
+            NavigationSubListItem(
+              title: children[i],
+              onPressed: () => onPressed(i),
+            )
+        ],
+        collapsedIconColor: AppColors.royalBlue,
       ),
     );
   }
