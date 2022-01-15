@@ -9,7 +9,15 @@ abstract class MovieCarouselState extends Equatable {
 
 class MovieCarouselInitial extends MovieCarouselState {}
 
-class MovieCarouselError extends MovieCarouselState {}
+class MovieCarouselError extends MovieCarouselState {
+  final AppErrorType appErrorType;
+  const MovieCarouselError({
+    required this.appErrorType,
+  });
+  @override
+  // TODO: implement props
+  List<Object> get props => [appErrorType];
+}
 
 class MovieCarouselLoaded extends MovieCarouselState {
   final List<MovieEntity> movies;

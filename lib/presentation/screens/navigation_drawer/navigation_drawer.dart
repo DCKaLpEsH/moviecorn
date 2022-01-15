@@ -45,8 +45,9 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             NavigationListItem(
-                title: TranslationsConstants.favouriteMovies.t(context),
-                onPressed: () {}),
+              title: TranslationsConstants.favouriteMovies.t(context),
+              onPressed: () {},
+            ),
             NavigationExpandedListItem(
               title: TranslationsConstants.language.t(context),
               children: Languages.languages.map((e) => e.value).toList(),

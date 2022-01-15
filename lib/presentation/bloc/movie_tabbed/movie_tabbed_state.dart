@@ -11,8 +11,11 @@ abstract class MovieTabbedState extends Equatable {
 class MovieTabbedInitial extends MovieTabbedState {}
 
 class MovieTabLoadError extends MovieTabbedState {
-  const MovieTabLoadError({int? currentTabIndex})
-      : super(currentTabIndex: currentTabIndex);
+  const MovieTabLoadError({
+    required this.appErrorType,
+    int? currentTabIndex,
+  }) : super(currentTabIndex: currentTabIndex);
+  final AppErrorType appErrorType;
 }
 
 class MovieTabChanged extends MovieTabbedState {

@@ -39,6 +39,7 @@ class _MovieAppState extends State<MovieApp> {
     languageBloc?.close();
   }
 
+  // TODO : Fix buttons not showing text.
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();

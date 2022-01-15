@@ -37,6 +37,7 @@ class ThemeText {
         fontSize: Sizes.dimen_16.sp.toDouble(),
         color: Colors.white,
       );
+
   static TextStyle? get whiteBodyText2 => _poppinsTextTheme.bodyText2?.copyWith(
         color: Colors.white,
         fontSize: Sizes.dimen_14.sp.toDouble(),
@@ -49,5 +50,13 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get royalBlueSubtitle1 => subtitle1!.copyWith(
         color: AppColors.royalBlue,
         fontWeight: FontWeight.w600,
+      );
+
+  TextStyle get violetHeadline6 => headline6!.copyWith(
+        color: AppColors.violet,
+      );
+
+  TextStyle get greySubtitle1 => subtitle1!.copyWith(
+        color: Colors.grey,
       );
 }

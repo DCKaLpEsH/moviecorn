@@ -4,6 +4,8 @@ import 'package:moviecorn/common/constants/size_constants.dart';
 import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/common/extensions/string_extensions.dart';
 import 'package:moviecorn/data/core/api_constants.dart';
+import 'package:moviecorn/presentation/screens/movie_details/movie_detail_arguments.dart';
+import 'package:moviecorn/presentation/screens/movie_details/movie_detail_screen.dart';
 
 class MovieTabCardWidget extends StatelessWidget {
   const MovieTabCardWidget({
@@ -20,7 +22,16 @@ class MovieTabCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => MovieDetailScreen(
+                    movieDetailArguments: MovieDetailArguments(
+                      movieId: movieId,
+                    ),
+                  )),
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

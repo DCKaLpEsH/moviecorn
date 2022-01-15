@@ -10,4 +10,8 @@ class TranslationsConstants {
   static const now = "now";
   static const aboutDescription = "aboutDescription";
   static const okay = "okay";
+  static const retry = "retry";
+  static const somethingWentWrong = "somethingWentWrong";
+  static const checkNetwork = "checkNetwork";
+  static const noMovies = "noMovies";
 }
