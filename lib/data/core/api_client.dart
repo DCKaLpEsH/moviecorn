@@ -7,9 +7,10 @@ class ApiClient {
   final http.Client _client;
   ApiClient(this._client);
 
-  dynamic get(String path) async {
+  dynamic get(String path, {Map<dynamic, String>? params}) async {
     final url = Uri.parse(
-        "${ApiConstants.baseUrl}$path?api_key=${ApiConstants.apiKey}");
+      search(path, params ?? {}),
+    );
     final response = await _client.get(url, headers: {
       "Content-type": "application/json",
     });
@@ -18,5 +19,15 @@ class ApiClient {
     } else {
       throw Exception(response.reasonPhrase);
     }
+  }
+
+  dynamic search(String path, Map<dynamic, String> params) {
+    var stringParams = "";
+    if (params.isNotEmpty || params != null) {
+      params.forEach((key, value) {
+        stringParams += "&$key=$value";
+      });
+    }
+    return "${ApiConstants.baseUrl}$path?api_key=${ApiConstants.apiKey}$stringParams";
   }
 }

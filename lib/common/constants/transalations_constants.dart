@@ -14,4 +14,7 @@ class TranslationsConstants {
   static const somethingWentWrong = "somethingWentWrong";
   static const checkNetwork = "checkNetwork";
   static const noMovies = "noMovies";
+  static const noMoviesSearched = "noMoviesSearched";
+  static const cast = "cast";
+  static const watchTrailers = "watchTrailers";
 }

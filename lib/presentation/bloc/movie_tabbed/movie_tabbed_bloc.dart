@@ -13,9 +13,9 @@ part 'movie_tabbed_event.dart';
 part 'movie_tabbed_state.dart';
 
 class MovieTabbedBloc extends Bloc<MovieTabbedEvent, MovieTabbedState> {
-  final GetPopular? getPopular;
-  final GetComingSoon? getComingSoon;
-  final GetPlayingNow? getPlayingNow;
+  final GetPopular getPopular;
+  final GetComingSoon getComingSoon;
+  final GetPlayingNow getPlayingNow;
   MovieTabbedBloc({
     required this.getPopular,
     required this.getComingSoon,
@@ -30,13 +30,13 @@ class MovieTabbedBloc extends Bloc<MovieTabbedEvent, MovieTabbedState> {
       Either<AppError, List<MovieEntity>>? moviesEither;
       switch (event.currentTabIndex) {
         case 0:
-          moviesEither = await getPopular!(NoParams());
+          moviesEither = await getPopular(NoParams());
           break;
         case 1:
-          moviesEither = await getPlayingNow!(NoParams());
+          moviesEither = await getPlayingNow(NoParams());
           break;
         case 2:
-          moviesEither = await getComingSoon!(NoParams());
+          moviesEither = await getComingSoon(NoParams());
           break;
       }
       return emit(

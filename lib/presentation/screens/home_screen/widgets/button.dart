@@ -14,25 +14,25 @@ class Button extends StatelessWidget {
   final Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            AppColors.royalBlue,
-            AppColors.violet,
-          ],
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            Sizes.dimen_20.w.toDouble(),
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              AppColors.royalBlue,
+              AppColors.violet,
+            ],
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              Sizes.dimen_20.w.toDouble(),
+            ),
           ),
         ),
-      ),
-      padding: EdgeInsets.all(Sizes.dimen_16.w.toDouble()),
-      margin: EdgeInsets.all(Sizes.dimen_12.h.toDouble()),
-      height: Sizes.dimen_16.h.toDouble(),
-      child: TextButton(
-        onPressed: onPressed,
+        padding: EdgeInsets.all(Sizes.dimen_16.w.toDouble()),
+        margin: EdgeInsets.all(Sizes.dimen_12.h.toDouble()),
+        height: Sizes.dimen_16.h.toDouble(),
         child: Text(
           title.t(context),
           style: Theme.of(context).textTheme.button,

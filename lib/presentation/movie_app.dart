@@ -54,11 +54,15 @@ class _MovieAppState extends State<MovieApp> {
               child: MaterialApp(
                 navigatorKey: _navigatorKey,
                 theme: ThemeData(
+                  appBarTheme: const AppBarTheme(
+                    elevation: 0,
+                    backgroundColor: AppColors.vulcan,
+                  ),
                   primaryColor: AppColors.vulcan,
                   colorScheme:
                       ColorScheme.fromSwatch(accentColor: AppColors.royalBlue),
                   scaffoldBackgroundColor: AppColors.vulcan,
-                  primarySwatch: createMaterialColor(AppColors.royalBlue),
+                  primarySwatch: createMaterialColor(AppColors.vulcan),
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                   textTheme: ThemeText.getTextTheme(),
                   iconTheme: const IconThemeData(

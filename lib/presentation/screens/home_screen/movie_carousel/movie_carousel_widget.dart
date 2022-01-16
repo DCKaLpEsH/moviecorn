@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moviecorn/common/constants/size_constants.dart';
+import 'package:moviecorn/common/extensions/size_extensions.dart';
 
 import 'package:moviecorn/domain/entities/movie_entity.dart';
 import 'package:moviecorn/presentation/screens/home_screen/movie_carousel/movie_data_widget.dart';
@@ -30,7 +32,9 @@ class MovieCarouselWidget extends StatelessWidget {
               initialPage: defaultIndex,
             ),
             const MovieDataWidget(),
-            const Separator(),
+            Separator(
+              height: Sizes.dimen_1.h.toDouble(),
+            ),
           ],
         ),
       ],

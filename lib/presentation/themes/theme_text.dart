@@ -59,4 +59,11 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get greySubtitle1 => subtitle1!.copyWith(
         color: Colors.grey,
       );
+  TextStyle get vulcanBodyText2 => bodyText2!.copyWith(
+        color: AppColors.vulcan,
+      );
+  TextStyle get greyCaption => caption!.copyWith(
+        color: Colors.grey,
+        fontSize: Sizes.dimen_14.w.toDouble(),
+      );
 }
