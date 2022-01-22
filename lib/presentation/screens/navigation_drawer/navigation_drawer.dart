@@ -7,6 +7,7 @@ import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/common/extensions/string_extensions.dart';
 import 'package:moviecorn/presentation/app_localizations.dart';
 import 'package:moviecorn/presentation/bloc/language/language_bloc.dart';
+import 'package:moviecorn/presentation/screens/favourite_movies/favourite_movies_screen.dart';
 import 'package:moviecorn/presentation/screens/home_screen/widgets/app_dialog.dart';
 import 'package:moviecorn/presentation/screens/home_screen/widgets/logo.dart';
 import 'package:moviecorn/presentation/screens/navigation_drawer/navigation_expanded_list_item.dart';
@@ -46,7 +47,13 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationsConstants.favouriteMovies.t(context),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FavouriteMoviesScreen(),
+                  ),
+                );
+              },
             ),
             NavigationExpandedListItem(
               title: TranslationsConstants.language.t(context),

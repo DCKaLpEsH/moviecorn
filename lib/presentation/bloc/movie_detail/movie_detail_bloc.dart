@@ -8,6 +8,7 @@ import 'package:moviecorn/domain/entities/movie_entity.dart';
 import 'package:moviecorn/domain/entities/movie_params.dart';
 import 'package:moviecorn/domain/usecases/get_movie_detail.dart';
 import 'package:moviecorn/presentation/bloc/cast/cast_bloc.dart';
+import 'package:moviecorn/presentation/bloc/favorite/favorite_bloc.dart';
 
 part 'movie_detail_event.dart';
 part 'movie_detail_state.dart';
@@ -15,9 +16,11 @@ part 'movie_detail_state.dart';
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail getMovieDetail;
   final CastBloc castBloc;
+  final FavoriteBloc favoriteBloc;
   MovieDetailBloc({
     required this.getMovieDetail,
     required this.castBloc,
+    required this.favoriteBloc,
   }) : super(MovieDetailInitial()) {
     on<MovieDetailEvent>(getDetail);
   }
@@ -29,6 +32,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
           await getMovieDetail(
         MovieParams(id: event.movieId),
       );
+      favoriteBloc.add(CheckIfFavoriteMovieEvent(event.movieId));
       movieEither.fold((l) => emit(MovieDetailError()), (movieDetail) {
         emit(
           MovieDetailLoaded(movieDetailEntity: movieDetail),

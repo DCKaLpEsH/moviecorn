@@ -13,6 +13,7 @@ class ToggleLanguageEvent extends LanguageEvent {
     required this.language,
   });
   @override
-  // TODO: implement props
   List<Object> get props => [language];
 }
+
+class LoadPreferredLanguageEvent extends LanguageEvent {}

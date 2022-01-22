@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'movie_detail_entity.dart';
+
 class MovieEntity extends Equatable {
   final String posterPath;
   final String title;
@@ -17,6 +19,18 @@ class MovieEntity extends Equatable {
     required this.voteAverage,
     this.overview,
   });
+
+  factory MovieEntity.fromMovieDetailEntity(
+      MovieDetailEntity movieDetailEntity) {
+    return MovieEntity(
+      posterPath: movieDetailEntity.posterPath!,
+      id: movieDetailEntity.id!,
+      backdropPath: movieDetailEntity.backdropPath!,
+      title: movieDetailEntity.title!,
+      voteAverage: movieDetailEntity.voteAverage!,
+      releaseDate: movieDetailEntity.releaseDate!,
+    );
+  }
 
   @override
   List<Object?> get props => [id, title];

@@ -5,6 +5,7 @@ import 'package:moviecorn/common/constants/transalations_constants.dart';
 import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/di/get_it.dart';
 import 'package:moviecorn/presentation/bloc/cast/cast_bloc.dart';
+import 'package:moviecorn/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:moviecorn/common/extensions/string_extensions.dart';
 import 'package:moviecorn/presentation/bloc/movie_videos/movie_videos_bloc.dart';
@@ -31,6 +32,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late MovieDetailBloc movieDetailBloc;
   late CastBloc castBloc;
   late MovieVideosBloc movieVideosBloc;
+  late FavoriteBloc favoriteBloc;
   @override
   void initState() {
     super.initState();
@@ -48,6 +50,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     movieVideosBloc.add(
       MovieVideosLoadingEvent(movieId: widget.movieDetailArguments.movieId),
     );
+    favoriteBloc = getItInstance<FavoriteBloc>();
+    favoriteBloc
+        .add(CheckIfFavoriteMovieEvent(widget.movieDetailArguments.movieId));
   }
 
   @override
@@ -56,6 +61,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     movieDetailBloc.close();
     castBloc.close();
     movieVideosBloc.close();
+    favoriteBloc.close();
   }
 
   @override
@@ -71,6 +77,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           ),
           BlocProvider(
             create: (context) => movieVideosBloc,
+          ),
+          BlocProvider(
+            create: (context) => favoriteBloc,
           ),
         ],
         child: BlocBuilder<MovieDetailBloc, MovieDetailState>(

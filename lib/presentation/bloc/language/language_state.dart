@@ -13,6 +13,7 @@ class LanguageLoadedState extends LanguageState {
     required this.locale,
   });
   @override
-  // TODO: implement props
   List<Object> get props => [locale.languageCode];
 }
+
+class LanguageErrorState extends LanguageState {}

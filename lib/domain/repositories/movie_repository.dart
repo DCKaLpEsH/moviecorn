@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:moviecorn/data/models/movie_detail_model.dart';
 import 'package:moviecorn/data/models/movie_model.dart';
+import 'package:moviecorn/data/tables/movie_table.dart';
 import 'package:moviecorn/domain/entities/app_error.dart';
 import 'package:moviecorn/domain/entities/movie_cast_entity.dart';
 import 'package:moviecorn/domain/entities/movie_detail_entity.dart';
@@ -17,4 +18,9 @@ abstract class MovieRepository {
   Future<Either<AppError, List<MovieVideosEntity>>> getMovieVideos(int id);
   Future<Either<AppError, List<MovieEntity>>> getSearchedMovies(
       String searchTerm);
+
+  Future<Either<AppError, List<MovieEntity>>> getFavouriteMovies();
+  Future<Either<AppError, void>> deleteFavouriteMovies(int movieId);
+  Future<Either<AppError, void>> saveFavouriteMovie(MovieEntity movieEntity);
+  Future<Either<AppError, bool>> checkIfMovieFarourite(int movieId);
 }

@@ -7,6 +7,7 @@ import 'package:moviecorn/common/constants/size_constants.dart';
 import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/common/screenutil/screen_utils.dart';
 import 'package:moviecorn/di/get_it.dart';
+import 'package:moviecorn/domain/usecases/get_preferred_language.dart';
 import 'package:moviecorn/presentation/app_localizations.dart';
 import 'package:moviecorn/presentation/bloc/language/language_bloc.dart';
 import 'package:moviecorn/presentation/themes/app_colors.dart';
@@ -26,17 +27,20 @@ class MovieApp extends StatefulWidget {
 
 class _MovieAppState extends State<MovieApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  LanguageBloc? languageBloc;
+  late LanguageBloc languageBloc;
   @override
   void initState() {
     super.initState();
     languageBloc = getItInstance<LanguageBloc>();
+    languageBloc.add(
+      LoadPreferredLanguageEvent(),
+    );
   }
 
   @override
   void dispose() {
     super.dispose();
-    languageBloc?.close();
+    languageBloc.close();
   }
 
   // TODO : Fix buttons not showing text.
@@ -44,7 +48,7 @@ class _MovieAppState extends State<MovieApp> {
   Widget build(BuildContext context) {
     ScreenUtil.init();
     return BlocProvider<LanguageBloc>.value(
-      value: languageBloc!,
+      value: languageBloc,
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           if (state is LanguageLoadedState) {
@@ -52,6 +56,7 @@ class _MovieAppState extends State<MovieApp> {
               navigatorKey: _navigatorKey,
               languageCode: state.locale.languageCode,
               child: MaterialApp(
+                debugShowCheckedModeBanner: false,
                 navigatorKey: _navigatorKey,
                 theme: ThemeData(
                   appBarTheme: const AppBarTheme(

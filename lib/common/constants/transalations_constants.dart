@@ -17,4 +17,5 @@ class TranslationsConstants {
   static const noMoviesSearched = "noMoviesSearched";
   static const cast = "cast";
   static const watchTrailers = "watchTrailers";
+  static const noFavoriteMovie = "noFavoriteMovie";
 }
