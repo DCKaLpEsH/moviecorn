@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moviecorn/common/constants/route_constants.dart';
 import 'package:moviecorn/common/constants/size_constants.dart';
 import 'package:moviecorn/common/extensions/size_extensions.dart';
 
@@ -20,12 +21,10 @@ class FavouriteMovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => MovieDetailScreen(
-              movieDetailArguments: MovieDetailArguments(movieId: entity.id),
-            ),
-          ),
+        Navigator.pushNamed(
+          context,
+          RouteConstants.movieDetail,
+          arguments: MovieDetailArguments(movieId: entity.id),
         );
       },
       child: Container(

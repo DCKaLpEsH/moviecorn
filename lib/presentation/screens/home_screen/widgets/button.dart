@@ -5,36 +5,40 @@ import 'package:moviecorn/common/extensions/string_extensions.dart';
 import 'package:moviecorn/presentation/themes/app_colors.dart';
 
 class Button extends StatelessWidget {
+  final String text;
+  final Function() onPressed;
+  final bool isEnabled;
+
   const Button({
     Key? key,
-    required this.title,
+    required this.text,
     required this.onPressed,
+    this.isEnabled = true,
   }) : super(key: key);
-  final String title;
-  final Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              AppColors.royalBlue,
-              AppColors.violet,
-            ],
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              Sizes.dimen_20.w.toDouble(),
-            ),
-          ),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeIn,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: isEnabled
+              ? [AppColors.royalBlue, AppColors.violet]
+              : [Colors.grey, Colors.grey],
         ),
-        padding: EdgeInsets.all(Sizes.dimen_16.w.toDouble()),
-        margin: EdgeInsets.all(Sizes.dimen_12.h.toDouble()),
-        height: Sizes.dimen_16.h.toDouble(),
+        borderRadius: BorderRadius.all(
+          Radius.circular(Sizes.dimen_20.w.toDouble()),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w.toDouble()),
+      margin: EdgeInsets.symmetric(vertical: Sizes.dimen_10.h.toDouble()),
+      height: Sizes.dimen_16.h.toDouble(),
+      child: TextButton(
+        key: const ValueKey('main_button'),
+        onPressed: isEnabled ? onPressed : null,
         child: Text(
-          title.t(context),
+          text.t(context),
           style: Theme.of(context).textTheme.button,
         ),
       ),

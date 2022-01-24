@@ -67,7 +67,7 @@ class AppDialog extends StatelessWidget {
               image!,
             ],
             Button(
-              title: buttonText,
+              text: buttonText,
               onPressed: () {
                 Navigator.pop(context);
               },

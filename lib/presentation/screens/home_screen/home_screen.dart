@@ -2,26 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
-import 'package:moviecorn/common/constants/size_constants.dart';
-import 'package:moviecorn/common/extensions/size_extensions.dart';
-import 'package:moviecorn/data/core/api_client.dart';
 import 'package:moviecorn/di/get_it.dart';
-import 'package:moviecorn/domain/entities/app_error.dart';
-import 'package:moviecorn/domain/entities/no_params.dart';
-import 'package:moviecorn/domain/usecases/get_trending.dart';
 import 'package:moviecorn/presentation/bloc/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_carousel/movie_caruosel_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_tabbed/movie_tabbed_bloc.dart';
-import 'package:moviecorn/presentation/screens/home_screen/movie_tabbed/movie_list_view.dart';
 import 'package:moviecorn/presentation/screens/home_screen/movie_tabbed/movie_tabbed_widget.dart';
-import 'package:moviecorn/presentation/screens/home_screen/widgets/movie_app_bar.dart';
 import 'package:moviecorn/presentation/screens/navigation_drawer/navigation_drawer.dart';
 
 import 'movie_carousel/app_error_widget.dart';
 import 'movie_carousel/movie_carousel_widget.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -93,11 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            );
+            return const SizedBox.shrink();
           },
         ),
       ),

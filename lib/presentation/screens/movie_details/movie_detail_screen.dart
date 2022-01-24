@@ -6,9 +6,11 @@ import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/di/get_it.dart';
 import 'package:moviecorn/presentation/bloc/cast/cast_bloc.dart';
 import 'package:moviecorn/presentation/bloc/favorite/favorite_bloc.dart';
+import 'package:moviecorn/presentation/bloc/loading/loading_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:moviecorn/common/extensions/string_extensions.dart';
 import 'package:moviecorn/presentation/bloc/movie_videos/movie_videos_bloc.dart';
+import 'package:moviecorn/presentation/screens/loading/loading_screen.dart';
 import 'package:moviecorn/presentation/screens/movie_details/movie_detail_arguments.dart';
 import 'package:moviecorn/presentation/screens/movie_details/trailers_widget.dart';
 
@@ -120,11 +122,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               );
             } else if (state is MovieDetailError) {
               return Container();
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
             }
+            return const SizedBox.shrink();
           },
         ),
       ),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:moviecorn/common/constants/languages.dart';
+import 'package:moviecorn/common/constants/route_constants.dart';
 import 'package:moviecorn/common/constants/size_constants.dart';
 import 'package:moviecorn/common/constants/transalations_constants.dart';
 import 'package:moviecorn/common/extensions/size_extensions.dart';
 import 'package:moviecorn/common/extensions/string_extensions.dart';
+import 'package:moviecorn/domain/entities/no_params.dart';
 import 'package:moviecorn/presentation/app_localizations.dart';
 import 'package:moviecorn/presentation/bloc/language/language_bloc.dart';
+import 'package:moviecorn/presentation/bloc/login/login_bloc.dart';
 import 'package:moviecorn/presentation/screens/favourite_movies/favourite_movies_screen.dart';
 import 'package:moviecorn/presentation/screens/home_screen/widgets/app_dialog.dart';
 import 'package:moviecorn/presentation/screens/home_screen/widgets/logo.dart';
@@ -14,6 +18,8 @@ import 'package:moviecorn/presentation/screens/navigation_drawer/navigation_expa
 import 'package:moviecorn/presentation/screens/navigation_drawer/navigation_list_item.dart';
 import 'package:moviecorn/presentation/themes/app_colors.dart';
 import 'package:wiredash/wiredash.dart';
+
+import '../../routes.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -48,10 +54,9 @@ class NavigationDrawer extends StatelessWidget {
             NavigationListItem(
               title: TranslationsConstants.favouriteMovies.t(context),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const FavouriteMoviesScreen(),
-                  ),
+                Navigator.pushNamed(
+                  context,
+                  RouteConstants.favourite,
                 );
               },
             ),
@@ -79,6 +84,21 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
                 _showDialog(context);
               },
+            ),
+            BlocListener<LoginBloc, LoginState>(
+              listenWhen: (previous, current) => current is LogoutSucces,
+              listener: (context, state) {
+                if (state is LogoutSucces) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      RouteConstants.initial, (route) => false);
+                }
+              },
+              child: NavigationListItem(
+                title: TranslationsConstants.logout.t(context),
+                onPressed: () {
+                  BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
+                },
+              ),
             ),
           ],
         ),

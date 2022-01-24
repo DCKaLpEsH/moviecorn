@@ -9,6 +9,7 @@ import 'package:moviecorn/domain/entities/movie_params.dart';
 import 'package:moviecorn/domain/usecases/get_movie_detail.dart';
 import 'package:moviecorn/presentation/bloc/cast/cast_bloc.dart';
 import 'package:moviecorn/presentation/bloc/favorite/favorite_bloc.dart';
+import 'package:moviecorn/presentation/bloc/loading/loading_bloc.dart';
 
 part 'movie_detail_event.dart';
 part 'movie_detail_state.dart';
@@ -17,10 +18,12 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMovieDetail getMovieDetail;
   final CastBloc castBloc;
   final FavoriteBloc favoriteBloc;
+  final LoadingBloc loadingBloc;
   MovieDetailBloc({
     required this.getMovieDetail,
     required this.castBloc,
     required this.favoriteBloc,
+    required this.loadingBloc,
   }) : super(MovieDetailInitial()) {
     on<MovieDetailEvent>(getDetail);
   }
@@ -28,6 +31,9 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   Future<void> getDetail(
       MovieDetailEvent event, Emitter<MovieDetailState> emit) async {
     if (event is MovieDetailLoadEvent) {
+      loadingBloc.add(
+        StartLoadingEvent(),
+      );
       final Either<AppError, MovieDetailEntity> movieEither =
           await getMovieDetail(
         MovieParams(id: event.movieId),
@@ -38,6 +44,10 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
           MovieDetailLoaded(movieDetailEntity: movieDetail),
         );
       });
+
+      loadingBloc.add(
+        FinishLoadingEvent(),
+      );
 
       //todo jarr add event ithe kela tr cast load nai hoat, pn jar te add moviedetail chya initstate madhe kela tr load hote cast
       // castBloc.add(

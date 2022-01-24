@@ -31,11 +31,11 @@ class AppErrorWidget extends StatelessWidget {
         ButtonBar(
           children: [
             Button(
-              title: TranslationsConstants.retry,
+              text: TranslationsConstants.retry,
               onPressed: onPressed,
             ),
             Button(
-              title: TranslationsConstants.feedback,
+              text: TranslationsConstants.feedback,
               onPressed: () => Wiredash.of(context)!.show(),
             ),
           ],

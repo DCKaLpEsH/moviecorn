@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:moviecorn/data/core/api_client.dart';
+import 'package:moviecorn/data/data_sources/authentication_local_data_source.dart';
+import 'package:moviecorn/data/data_sources/authentication_remote_data_source.dart';
 import 'package:moviecorn/data/data_sources/language_local_data_source.dart';
 import 'package:moviecorn/data/data_sources/movie_local_data_source.dart';
 import 'package:moviecorn/data/data_sources/remote_data_source.dart';
+import 'package:moviecorn/data/repositories/authentication_repository_impl.dart';
 import 'package:moviecorn/data/repositories/movie_repository_impl.dart';
+import 'package:moviecorn/domain/repositories/authentication_repository.dart';
 import 'package:moviecorn/domain/repositories/local_app_repository.dart';
 import 'package:moviecorn/domain/repositories/movie_repository.dart';
 import 'package:moviecorn/domain/usecases/check_movie_fav.dart';
@@ -19,11 +23,15 @@ import 'package:moviecorn/domain/usecases/get_popular.dart';
 import 'package:moviecorn/domain/usecases/get_preferred_language.dart';
 import 'package:moviecorn/domain/usecases/get_searched_movies.dart';
 import 'package:moviecorn/domain/usecases/get_trending.dart';
+import 'package:moviecorn/domain/usecases/login_user.dart';
+import 'package:moviecorn/domain/usecases/logout_user.dart';
 import 'package:moviecorn/domain/usecases/save_movie.dart';
 import 'package:moviecorn/domain/usecases/update_language.dart';
 import 'package:moviecorn/presentation/bloc/cast/cast_bloc.dart';
 import 'package:moviecorn/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:moviecorn/presentation/bloc/language/language_bloc.dart';
+import 'package:moviecorn/presentation/bloc/loading/loading_bloc.dart';
+import 'package:moviecorn/presentation/bloc/login/login_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_carousel/movie_caruosel_bloc.dart';
 import 'package:moviecorn/presentation/bloc/movie_detail/movie_detail_bloc.dart';
@@ -47,6 +55,12 @@ Future init() async {
   );
   getItInstance.registerLazySingleton<LanguageLocalDataSource>(
     () => LanguageLocalDataSourceImpl(),
+  );
+  getItInstance.registerLazySingleton<AuthenticationRemoteDataSource>(
+    () => AuthenticationDataSourceImpl(getItInstance()),
+  );
+  getItInstance.registerLazySingleton<AuthenticationLocalDataSource>(
+    () => AuthenticationLocalDataSourceImpl(),
   );
 
   getItInstance
@@ -78,6 +92,16 @@ Future init() async {
       getItInstance(),
     ),
   );
+  getItInstance.registerLazySingleton<LoginUser>(
+    () => LoginUser(
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<LogoutUser>(
+    () => LogoutUser(
+      getItInstance(),
+    ),
+  );
   getItInstance.registerLazySingleton<UpdateLanguage>(
     () => UpdateLanguage(
       getItInstance(),
@@ -86,6 +110,12 @@ Future init() async {
 
   getItInstance.registerLazySingleton<MovieRepository>(
     () => MovieRepositoryImpl(
+      getItInstance(),
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerLazySingleton<AuthenticationRepository>(
+    () => AuthenticationRepositoryImpl(
       getItInstance(),
       getItInstance(),
     ),
@@ -104,6 +134,7 @@ Future init() async {
     () => MovieCarouselBloc(
       getTrending: getItInstance(),
       movieBackdropBloc: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
   getItInstance.registerFactory(
@@ -130,6 +161,7 @@ Future init() async {
       getMovieDetail: getItInstance(),
       castBloc: getItInstance(),
       favoriteBloc: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
   getItInstance.registerFactory(
@@ -138,7 +170,10 @@ Future init() async {
     ),
   );
   getItInstance.registerFactory(
-    () => MovieSearchBloc(getItInstance()),
+    () => MovieSearchBloc(
+      getItInstance(),
+      getItInstance(),
+    ),
   );
   getItInstance.registerFactory(
     () => FavoriteBloc(
@@ -147,5 +182,14 @@ Future init() async {
       getItInstance(),
       getItInstance(),
     ),
+  );
+  getItInstance.registerFactory(
+    () => LoginBloc(
+      getItInstance(),
+      getItInstance(),
+    ),
+  );
+  getItInstance.registerFactory(
+    () => LoadingBloc(),
   );
 }

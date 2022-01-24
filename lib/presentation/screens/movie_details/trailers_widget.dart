@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moviecorn/common/constants/route_constants.dart';
 import 'package:moviecorn/common/constants/transalations_constants.dart';
 import 'package:moviecorn/presentation/bloc/movie_videos/movie_videos_bloc.dart';
 import 'package:moviecorn/presentation/screens/home_screen/widgets/button.dart';
@@ -20,17 +21,12 @@ class TrailersWidget extends StatelessWidget {
             );
           }
           return Button(
-            title: TranslationsConstants.favouriteMovies,
+            text: TranslationsConstants.favouriteMovies,
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return WatchVideoScreen(
-                      watchVideoArguments:
-                          WatchVideoArguments(videos: state.videos),
-                    );
-                  },
-                ),
+              Navigator.pushNamed(
+                context,
+                RouteConstants.watchTrailer,
+                arguments: WatchVideoArguments(videos: state.videos),
               );
             },
           );
